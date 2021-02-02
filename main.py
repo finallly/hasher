@@ -1,17 +1,12 @@
-# import sys
-# from PyQt5 import QtWidgets
-#
-# from backend.form import FormWindow
-#
-#
-# if __name__ == '__main__':
-#     application = QtWidgets.QApplication(sys.argv)
-#     window = FormWindow()
-#     window.show()
-#     sys.exit(application.exec_())
-import json
+import sys
+from PyQt5 import QtWidgets
 
+from backend.form import FormWindow
+from handlers import configHandler
 
-with open('E:\data\_passwords.json', mode='r', encoding='utf8') as fin:
-    _dict = json.loads(fin.read())
-    print(_dict)
+if __name__ == '__main__':
+    application = QtWidgets.QApplication(sys.argv)
+    application.setStyleSheet(configHandler.stylesheet)
+    window = FormWindow()
+    window.show()
+    sys.exit(application.exec_())

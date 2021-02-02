@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>600</height>
+    <width>908</width>
+    <height>506</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>580</width>
-    <height>600</height>
+    <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>580</width>
-    <height>600</height>
+    <width>1000</width>
+    <height>1000</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,12 +29,12 @@
    <string notr="true">background-color: #3C3C3B;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="buttonEncrypt">
+   <widget class="QPushButton" name="buttonGet">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>280</y>
-      <width>151</width>
+      <x>740</x>
+      <y>50</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
@@ -68,15 +68,15 @@ QPushButton:pressed {
 }</string>
     </property>
     <property name="text">
-     <string>encrypt</string>
+     <string>get</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonDecrypt">
+   <widget class="QPushButton" name="buttonAdd">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>280</y>
-      <width>141</width>
+      <x>400</x>
+      <y>50</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
@@ -110,15 +110,15 @@ QPushButton:pressed {
 }</string>
     </property>
     <property name="text">
-     <string>decrypt</string>
+     <string>add</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="keyLine">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>280</y>
-      <width>251</width>
+      <x>400</x>
+      <y>10</y>
+      <width>501</width>
       <height>31</height>
      </rect>
     </property>
@@ -328,10 +328,10 @@ QLineEdit[echoMode=&quot;2&quot;] {
    <widget class="QTextEdit" name="result_field">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>320</y>
-      <width>561</width>
-      <height>261</height>
+      <x>400</x>
+      <y>90</y>
+      <width>501</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="palette">
@@ -533,192 +533,53 @@ QLineEdit[echoMode=&quot;2&quot;] {
      <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
-   <widget class="QTextEdit" name="data_field">
+   <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>561</width>
-      <height>261</height>
+      <y>50</y>
+      <width>381</width>
+      <height>431</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>1</width>
-      <height>0</height>
-     </size>
+    <property name="styleSheet">
+     <string notr="true">QScrollArea {
+ background-color: #1F1F20;
+ color: #00ee00;
+}
+</string>
     </property>
-    <property name="palette">
-     <palette>
-      <active>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </active>
-      <inactive>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </inactive>
-      <disabled>
-       <colorrole role="WindowText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Button">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Text">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="ButtonText">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>0</red>
-          <green>238</green>
-          <blue>0</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Base">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-       <colorrole role="Window">
-        <brush brushstyle="SolidPattern">
-         <color alpha="255">
-          <red>31</red>
-          <green>31</green>
-          <blue>32</blue>
-         </color>
-        </brush>
-       </colorrole>
-      </disabled>
-     </palette>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustIgnored</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>381</width>
+       <height>431</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="buttonDeletre">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>50</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
     </property>
     <property name="font">
      <font>
@@ -726,26 +587,109 @@ QLineEdit[echoMode=&quot;2&quot;] {
       <pointsize>14</pointsize>
      </font>
     </property>
-    <property name="cursor" stdset="0">
-     <cursorShape>IBeamCursor</cursorShape>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">QTextEdit {
- background-color: #1F1F20;
+     <string notr="true">QPushButton {
+  background-color: #1F1F20;
   border-style: solid;
   border: 1px solid #1e1e1e;
   border-radius: 5;
   padding: 1px 0px 1px 0px;
-  color: #00ee00;
+  color:#00ee00;
 }
 
-</string>
+QPushButton:pressed {
+    background-color: #181819;
+}
+
+ QPushButton:hover
+{
+    border: 2px solid #00ee00;
+    color: #00ee00;
+}</string>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
+    <property name="text">
+     <string>delete</string>
     </property>
-    <property name="placeholderText">
-     <string/>
+   </widget>
+   <widget class="QCheckBox" name="selectAll">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>381</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Consolas</family>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QCheckBox {
+                 background-color: #1F1F20;
+                 border-style: solid;
+                 border: 1px solid #1e1e1e;
+                 border-radius: 3;
+                 padding: 1px 1px 1px 120px;
+                 color: #00ee00;
+                 spacing: 10px;
+                 width: 25px;
+                 height: 25px;
+                 }
+
+                 QCheckBox::indicator {
+                 width: 15px;
+                 height: 15px;
+                 background-color: #1F1F20;
+                 border: 1px solid #00ee00;
+                 }
+
+                 QCheckBox::indicator:hover {
+                 border: 2px solid #00ee00;
+                 }
+
+                 QCheckBox::indicator:unchecked {
+                 image: url(classpath:Icons/checkmark.png);
+                 }
+
+                 QCheckBox::indicator:checked {
+                 border-image: url(frontend/images/mark.png);
+                 }
+
+                 QCheckBox::indicator:checked:hover {
+                 }
+
+                 QCheckBox::indicator:checked:pressed {
+                 }
+
+                 QCheckBox::indicator:indeterminate:hover {
+                 }
+
+                 QCheckBox::indicator:indeterminate:pressed {
+                 }</string>
+    </property>
+    <property name="text">
+     <string>Select All</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="tristate">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
