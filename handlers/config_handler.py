@@ -6,7 +6,8 @@ config.read('config.ini')
 
 
 class configHandler(ABC):
-    ui_file = config['FILES']['ui_file']
+    main_form_file = config['FILES']['main_form_file']
+    add_form_file = config['FILES']['add_form_file']
     data_source = config['FILES']['data_source']
 
     file_in_mode = config['ARGS']['file_in_mode']

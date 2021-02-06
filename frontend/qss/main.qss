@@ -1,10 +1,8 @@
-QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
-{
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
     background: none;
 }
 
-QScrollBar:vertical
-{
+QScrollBar:vertical {
     background-color: #2A2929;
     width: 15px;
     margin: 15px 3px 15px 3px;
@@ -12,15 +10,13 @@ QScrollBar:vertical
     border-radius: 4px;
 }
 
-QScrollBar::handle:vertical
-{
-    background-color: #1F1F20;       /* #605F5F; */
+QScrollBar::handle:vertical {
+    background-color: #1F1F20; /* #605F5F; */
     min-height: 5px;
     border-radius: 4px;
 }
 
-QScrollBar::sub-line:vertical
-{
+QScrollBar::sub-line:vertical {
     margin: 3px 0px 3px 0px;
     border-image: url(:/qss_icons/rc/up_arrow_disabled.png);
     height: 10px;
@@ -29,8 +25,7 @@ QScrollBar::sub-line:vertical
     subcontrol-origin: margin;
 }
 
-QScrollBar::add-line:vertical
-{
+QScrollBar::add-line:vertical {
     margin: 3px 0px 3px 0px;
     border-image: url(:/qss_icons/rc/down_arrow_disabled.png);
     height: 10px;
@@ -39,12 +34,14 @@ QScrollBar::add-line:vertical
     subcontrol-origin: margin;
 }
 
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical
-{
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
     background: none;
 }
 
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
-{
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     background: none;
+}
+
+TitleBar {
+    background-color: #3C3C3B;
 }

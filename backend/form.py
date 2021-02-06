@@ -1,5 +1,6 @@
 import json
 import hashlib
+
 from PyQt5 import uic
 from PyQt5 import QtGui
 from PyQt5 import QtWidgets
@@ -13,15 +14,18 @@ class FormWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         super().__init__()
-        uic.loadUi(configHandler.ui_file, self)
+        uic.loadUi(configHandler.main_form_file, self)
         self.__elements = [self.buttonGet, self.buttonDelete, self.buttonAdd,
                            self.result_field, self.selectAll, self.scrollArea]
 
         for element in self.__elements:
             element.hide()
 
+        # add service form
+        self.add_form = addForm(self)
+
         # button bindings
-        # self.buttonAdd.clicked.connect(self.)
+        self.buttonAdd.clicked.connect(self.button_add)
         self.buttonGet.clicked.connect(self.button_get)
         self.buttonDelete.clicked.connect(self.button_delete)
         self.buttonSubmit.clicked.connect(self.button_submit)
@@ -37,11 +41,9 @@ class FormWindow(QtWidgets.QMainWindow):
         self.checkboxes_setup()
 
     def button_get(self):
-        __dict = self.check_checkboxes()
-        __dict = {key: CaesarKeyCipher(value, keyword=self.key).decrypt() for key, value in __dict.items()}
-        lst = [f'{key}:\n<div><font color=\"red\">{value}</font></div>' for key, value in __dict.items()]
+        __lst = self.prepare_checkboxes_list()
         self.result_field.clear()
-        self.result_field.insertHtml('\n'.join(lst))
+        self.result_field.insertHtml('\n'.join(__lst))
 
     def button_submit(self):
         key_sha = hashlib.sha256(str(self.key).encode(configHandler.charset))
@@ -65,8 +67,8 @@ class FormWindow(QtWidgets.QMainWindow):
 
         self.checkboxes_setup()
 
-    def decrypt_add(self):
-        self.result_field.setText(CaesarKeyCipher(self.data_field.toPlainText(), keyword=self.key).decrypt())
+    def button_add(self):
+        self.add_form.show()
 
     def key_checker(self) -> None:
         self.key = self.keyLine.text()
@@ -84,6 +86,11 @@ class FormWindow(QtWidgets.QMainWindow):
 
         return __dict
 
+    def prepare_checkboxes_list(self):
+        __dict = self.check_checkboxes()
+        __dict = {key: CaesarKeyCipher(value, keyword=configHandler.sha_key).decrypt() for key, value in __dict.items()}
+        return [f'{key}:\n<div><font color=\"red\">{value}</font></div>' for key, value in __dict.items()]
+
     # noinspection PyAttributeOutsideInit
     def checkboxes_setup(self):
         font = QtGui.QFont()
@@ -96,13 +103,48 @@ class FormWindow(QtWidgets.QMainWindow):
 
         self.checkboxes = [QCheckBox(key) for key in self._dict.keys()]
 
-        for box in self.checkboxes:
-            box.setFont(font)
-            with fileHandler(configHandler.checkbox_css, configHandler.file_in_mode) as file_in:
-                box.setStyleSheet(file_in.read())
-            layout.addWidget(box)
+        with fileHandler(configHandler.checkbox_css, configHandler.file_in_mode) as file_in:
+            stylesheet = file_in.read()
+            for box in self.checkboxes:
+                box.setFont(font)
+                box.setStyleSheet(stylesheet)
+                layout.addWidget(box)
 
         widget = QWidget()
         widget.setLayout(layout)
 
         self.scrollArea.setWidget(widget)
+
+
+class addForm(QtWidgets.QWidget):
+
+    def __init__(self, root):
+        super().__init__()
+        self.main = root
+        uic.loadUi(configHandler.add_form_file, self)
+
+        self.buttonAddRecord.clicked.connect(self.button_add)
+
+    # noinspection PyAttributeOutsideInit
+    def button_add(self):
+        __dict = {}
+        self.service = self.serviceLine.text()
+        self.passwd = self.passwdLine.text()
+        self.passwd = CaesarKeyCipher(self.passwd, keyword=configHandler.sha_key).encrypt()
+
+        with fileHandler(configHandler.data_source, configHandler.file_in_mode) as file_in:
+            __dict = json.loads(file_in.read())
+
+        __dict[self.service] = self.passwd
+        self.serviceLine.clear()
+        self.passwdLine.clear()
+
+        with fileHandler(configHandler.data_source, configHandler.file_out_mode) as file_out:
+            file_out.write(json.dumps(__dict))
+
+        self.main.checkboxes_setup()
+        __lst = self.main.prepare_checkboxes_list()
+        self.main.result_field.clear()
+        self.main.result_field.insertHtml('\n'.join(__lst))
+
+        self.close()

@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 
 from backend.form import FormWindow
 from handlers import configHandler, fileHandler
@@ -9,5 +9,6 @@ if __name__ == '__main__':
     with fileHandler(configHandler.main_css, configHandler.file_in_mode) as file_in:
         application.setStyleSheet(file_in.read())
     window = FormWindow()
+    # window.setWindowFlags(QtCore.Qt.FramelessWindowHint)
     window.show()
     sys.exit(application.exec_())
