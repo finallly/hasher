@@ -572,7 +572,7 @@ QLineEdit[echoMode=&quot;2&quot;] {
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="buttonDeletre">
+   <widget class="QPushButton" name="buttonDelete">
     <property name="geometry">
      <rect>
       <x>570</x>

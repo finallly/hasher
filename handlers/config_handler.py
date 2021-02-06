@@ -12,8 +12,8 @@ class configHandler(ABC):
     file_mode = config['ARGS']['file_mode']
     charset = config['ARGS']['charset']
 
-    stylesheet = config['STYLES']['stylesheet']
-    box_stylesheet = config['STYLES']['box_stylesheet']
+    main_css = config['STYLES']['stylesheet']
+    checkbox_css = config['STYLES']['box_stylesheet']
 
     @abstractmethod
     def do_not_inherit(self):
