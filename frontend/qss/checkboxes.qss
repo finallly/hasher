@@ -1,0 +1,42 @@
+QCheckBox {
+    background-color: #1F1F20;
+    border-style: solid;
+    border: 1px solid #1e1e1e;
+    border-radius: 3;
+    padding: 1px 1px 1px 7px;
+    color: #00ee00;
+    spacing: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+QCheckBox::indicator {
+    width: 15px;
+    height: 15px;
+    background-color: #1F1F20;
+    border: 1px solid #00ee00;
+}
+
+QCheckBox::indicator:hover {
+    border: 2px solid #00ee00;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url(classpath:Icons/checkmark.png);
+}
+
+QCheckBox::indicator:checked {
+    border-image: url(frontend/images/mark.png);
+}
+
+QCheckBox::indicator:checked:hover {
+}
+
+QCheckBox::indicator:checked:pressed {
+}
+
+QCheckBox::indicator:indeterminate:hover {
+}
+
+QCheckBox::indicator:indeterminate:pressed {
+}
