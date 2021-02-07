@@ -10,11 +10,23 @@
     <height>159</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>371</width>
+    <height>159</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>371</width>
+    <height>159</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #3C3C3B;</string>
+   <string notr="true">background-color: #2f3032;</string>
   </property>
   <widget class="QLineEdit" name="serviceLine">
    <property name="geometry">
