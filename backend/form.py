@@ -3,15 +3,15 @@ import json
 import hashlib
 
 from PyQt5 import uic
-from PyQt5 import QtGui
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QGridLayout, QCheckBox, QWidget
+from PyQt5.QtGui import QKeyEvent
+from PyQt5.QtWidgets import QMainWindow, QGridLayout, QCheckBox, QWidget, QLineEdit
 
 from backend import CaesarKeyCipher
+from frontend.font.font import font
 from handlers import configHandler, fileHandler
 
 
-class FormWindow(QtWidgets.QMainWindow):
+class FormWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -19,6 +19,7 @@ class FormWindow(QtWidgets.QMainWindow):
         self.__local__ = os.getenv('LOCALAPPDATA')
         self.__elements = [self.buttonGet, self.buttonDelete, self.buttonAdd,
                            self.result_field, self.selectAll, self.scrollArea]
+        self.state = configHandler.state_logging
 
         with fileHandler(self.__local__ + configHandler.passwd_source, configHandler.file_in_mode) as file_in:
             __key = json.loads(file_in.read())
@@ -45,8 +46,8 @@ class FormWindow(QtWidgets.QMainWindow):
 
         # keyLine settings
         self.key = str()
-        self.keyLine.setEchoMode(QtWidgets.QLineEdit.Password)
-        self.keyLine_2.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.keyLine.setEchoMode(QLineEdit.Password)
+        self.keyLine_2.setEchoMode(QLineEdit.Password)
         self.keyLine.editingFinished.connect(self.key_checker)
         self.keyLine.setMaxLength(30)
         self.keyLine_2.setMaxLength(30)
@@ -57,6 +58,15 @@ class FormWindow(QtWidgets.QMainWindow):
 
         #
         self.label.hide()
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        if self.state == configHandler.state_logging:
+            if event.key() == configHandler.enter_key:
+                self.button_submit()
+
+        elif self.state == configHandler.state_active:
+            if event.key() == configHandler.enter_key:
+                self.button_get()
 
     def button_get(self):
         __lst = self.prepare_checkboxes_list()
@@ -69,12 +79,14 @@ class FormWindow(QtWidgets.QMainWindow):
             key_sha = key_sha.hexdigest()
 
             if key_sha == self.local_sha_key:
+                self.state = configHandler.state_active
                 self.buttonSubmit.hide()
                 self.keyLine.hide()
                 for element in self.__elements:
                     element.show()
         else:
             if self.key == self.keyLine_2.text():
+                self.state = configHandler.state_active
                 self.keyLine_2.hide()
                 key_sha = hashlib.sha256(str(self.key).encode(configHandler.charset))
                 key_sha = key_sha.hexdigest()
@@ -122,24 +134,23 @@ class FormWindow(QtWidgets.QMainWindow):
         return __dict
 
     def prepare_checkboxes_list(self):
+        message = configHandler.message
         __dict = self.check_checkboxes()
         __dict = {key: CaesarKeyCipher(value, keyword=self.local_sha_key).decrypt() for key, value in __dict.items()}
-        return [f'{key}:\n<div><font color=\"red\">{value}</font></div>' for key, value in __dict.items()]
+        return [message.format(key, value) for key, value in __dict.items()]
 
     # noinspection PyAttributeOutsideInit
     def checkboxes_setup(self):
-        font = QtGui.QFont()
-        font.setFamily("Consolas")
-        font.setPointSize(14)
+        layout = QGridLayout()
 
         with fileHandler(self.__local__ + configHandler.data_source, configHandler.file_in_mode) as file_in:
-            layout = QGridLayout()
             self._dict = json.loads(file_in.read())
 
         self.checkboxes = [QCheckBox(key) for key in self._dict.keys()]
 
-        with fileHandler(configHandler.checkbox_css, configHandler.file_in_mode) as file_in:
+        with fileHandler(configHandler.checkbox_qss, configHandler.file_in_mode) as file_in:
             stylesheet = file_in.read()
+
             for box in self.checkboxes:
                 box.setFont(font)
                 box.setStyleSheet(stylesheet)
@@ -151,7 +162,7 @@ class FormWindow(QtWidgets.QMainWindow):
         self.scrollArea.setWidget(widget)
 
 
-class addForm(QtWidgets.QWidget):
+class addForm(QWidget):
 
     def __init__(self, root):
         super().__init__()
@@ -159,6 +170,10 @@ class addForm(QtWidgets.QWidget):
         uic.loadUi(configHandler.add_form_file, self)
 
         self.buttonAddRecord.clicked.connect(self.button_add)
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        if event.key() == configHandler.enter_key:
+            self.button_add()
 
     # noinspection PyAttributeOutsideInit
     def button_add(self):

@@ -17,8 +17,16 @@ class configHandler(ABC):
     key_storage = config['ARGS']['key_storage']
     charset = config['ARGS']['charset']
 
-    main_css = config['STYLES']['stylesheet']
-    checkbox_css = config['STYLES']['box_stylesheet']
+    state_logging = config['STATES']['logging']
+    state_active = config['STATES']['active']
+    state_adding = config['STATES']['adding']
+
+    main_qss = config['STYLES']['stylesheet']
+    checkbox_qss = config['STYLES']['box_stylesheet']
+
+    enter_key = int(config['KEYS']['Enter'])
+
+    message = config['MESSAGE']['message']
 
     @abstractmethod
     def do_not_inherit(self):
