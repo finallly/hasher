@@ -28,8 +28,8 @@ class FormWindow(QtWidgets.QMainWindow):
             self.flag = False
             self.keyLine.setPlaceholderText('repeat pass')
         else:
-            self.keyLine_2.hide()
             self.flag = True
+            self.keyLine_2.hide()
 
         for element in self.__elements:
             element.hide()
@@ -78,6 +78,7 @@ class FormWindow(QtWidgets.QMainWindow):
                 self.keyLine_2.hide()
                 key_sha = hashlib.sha256(str(self.key).encode(configHandler.charset))
                 key_sha = key_sha.hexdigest()
+                self.local_sha_key = key_sha
 
                 with fileHandler(self.__local__ + configHandler.passwd_source, configHandler.file_out_mode) as file_out:
                     file_out.write(json.dumps({'key': key_sha}))
