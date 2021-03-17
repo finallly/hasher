@@ -85,7 +85,7 @@ class FormWindow(QMainWindow):
                 for element in self.__elements:
                     element.show()
         else:
-            if self.key == self.keyLine_2.text():
+            if self.key == self.keyLine_2.text() and len(self.key) >= 1:
                 self.state = configHandler.state_active
                 self.keyLine_2.hide()
                 key_sha = hashlib.sha256(str(self.key).encode(configHandler.charset))
