@@ -90,6 +90,7 @@ class FormWindow(QMainWindow):
                 self.keyLine_2.hide()
                 key_sha = hashlib.sha256(str(self.key).encode(configHandler.charset))
                 key_sha = key_sha.hexdigest()
+                self.local_sha_key = key_sha
 
                 with fileHandler(self.__local__ + configHandler.passwd_source, configHandler.file_out_mode) as file_out:
                     file_out.write(json.dumps({'key': key_sha}))
@@ -136,8 +137,10 @@ class FormWindow(QMainWindow):
     def prepare_checkboxes_list(self):
         message = configHandler.message
         __dict = self.check_checkboxes()
-        __dict = {key: CaesarKeyCipher(value, keyword=self.local_sha_key).decrypt() for key, value in __dict.items()}
-        return [message.format(key, value) for key, value in __dict.items()]
+        __dict = {key: (CaesarKeyCipher(value[0], keyword=self.local_sha_key).decrypt(),
+                        CaesarKeyCipher(value[1], keyword=self.local_sha_key).decrypt()) for key, value in
+                  __dict.items()}
+        return [message.format(key, value[0], value[1]) for key, value in __dict.items()]
 
     # noinspection PyAttributeOutsideInit
     def checkboxes_setup(self):
@@ -179,13 +182,13 @@ class addForm(QWidget):
     def button_add(self):
         __dict = {}
         self.service = self.serviceLine.text()
-        self.passwd = self.passwdLine.text()
-        self.passwd = CaesarKeyCipher(self.passwd, keyword=self.main.local_sha_key).encrypt()
+        self.login = CaesarKeyCipher(self.loginLine.text(), keyword=self.main.local_sha_key).encrypt()
+        self.passwd = CaesarKeyCipher(self.passwdLine.text(), keyword=self.main.local_sha_key).encrypt()
 
         with fileHandler(self.main.__local__ + configHandler.data_source, configHandler.file_in_mode) as file_in:
             __dict = json.loads(file_in.read())
 
-        __dict[self.service] = self.passwd
+        __dict[self.service] = (self.login, self.passwd)
         self.serviceLine.clear()
         self.passwdLine.clear()
 
